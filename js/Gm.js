@@ -214,7 +214,7 @@
 		};
 	};
 	Gm.setMustWrite = function(ele, opt) {
-		var setting = $.extend({}, initMWSet, opt);
+		var setting = $.extend({}, initMWSet, opt); //用法setMustWrite($('xx'), {'margin-left': '15px'});
 		var element = $(ele);
 		
 		if (/setMustWrite/g.test(element.attr('class'))) {
@@ -260,7 +260,7 @@
 							eleStorge.push(ele[0]);
 						};
 					};	
-					
+				
 					if (eleStorge.length == 0) {
 						return;
 					} else {
@@ -272,5 +272,4 @@
 			return;
 		};
 	};
-	
 })(jQuery, window, document)
