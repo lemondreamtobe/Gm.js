@@ -272,4 +272,70 @@
 			return;
 		};
 	};
+	
+	//storage
+	function storage(){
+		if(window.localStorage){
+		//	alert('This browser supports localStorage');
+		}else{
+			alert('This browser does NOT support localStorage');
+			return ;
+		}
+		sto = window.localStorage;
+		//	this.usePlace = usePlace
+		//	window.localStorage.setItem('localData', '[]');
+	
+	};
+	storage.prototype = {
+		constructor : storage,
+		get			: storageFun.getValue,
+		set			: storageFun.setValue,
+		remove		: storageFun.removeValue,
+		clear		: storageFun.clearValue,
+		change		: storageFun.changeValue,
+		timeout		: storageFun.setTimeout,//其实没用的
+		countspace	: storageFun.count
+	};
+	
+	var storageFun = {
+		getValue : function getValue(key){
+			return JSON.parse(sto.getItem(key));
+		},
+		setValue : function setValue(key, value){ //value以对象的形式传入
+			if(!sto.getItem(key)){
+				sto.setItem(key, JSON.stringify(value));
+			}else{
+				alert('该键值已经存在,请更改key!');
+			}
+		},
+		removeValue : 	function removeValue(key){
+			sto.removeItem(key);
+		},
+		changeValue : function changeValue(key, id, value){
+			var flag = false;
+			var data = JSON.parse(sto.getItem(key));
+			for(var k in data){
+				if(k == id){
+					data[k] = value;
+					flag = true;
+					break;
+				}
+			}
+			if(!flag)data[id] = value;//没有这个键就添加
+			sto.setItem(key, JSON.stringify(data));
+		},
+		clearValue : function clearValue(){
+			sto.clear();
+		},
+		count	   : function count(){
+		return ((5000000 - JSON.stringify(sto).length)/(1024*1024)).toFixed(2) + 'MB';//不准确，字符存储格式不一样导致不同
+		}
+	}
+	window['Gm']['storage'] = new storage();
+	
+	//自动化分页
+	var tableData =[];
+	function setPagination(table, total, ) {
+		
+	};
 })(jQuery, window, document)
