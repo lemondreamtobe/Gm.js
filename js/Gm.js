@@ -214,7 +214,7 @@
 		};
 	};
 	Gm.setMustWrite = function(ele, opt) {
-		var setting = $.extend({}, initMWSet, opt);
+		var setting = $.extend({}, initMWSet, opt); //用法setMustWrite($('xx'), {'margin-left': '15px'});
 		var element = $(ele);
 		
 		if (/setMustWrite/g.test(element.attr('class'))) {
@@ -260,7 +260,7 @@
 							eleStorge.push(ele[0]);
 						};
 					};	
-					
+				
 					if (eleStorge.length == 0) {
 						return;
 					} else {
@@ -285,7 +285,7 @@
 		//	this.usePlace = usePlace
 		//	window.localStorage.setItem('localData', '[]');
 	
-	}
+	};
 	storage.prototype = {
 		constructor : storage,
 		get			: storageFun.getValue,
@@ -295,7 +295,7 @@
 		change		: storageFun.changeValue,
 		timeout		: storageFun.setTimeout,//其实没用的
 		countspace	: storageFun.count
-	}
+	};
 	
 	var storageFun = {
 		getValue : function getValue(key){
@@ -332,4 +332,10 @@
 		}
 	}
 	window['Gm']['storage'] = new storage();
+	
+	//自动化分页
+	var tableData =[];
+	function setPagination(table, total, ) {
+		
+	};
 })(jQuery, window, document)
