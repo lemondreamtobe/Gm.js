@@ -286,17 +286,6 @@
 		//	window.localStorage.setItem('localData', '[]');
 	
 	};
-	storage.prototype = {
-		constructor : storage,
-		get			: storageFun.getValue,
-		set			: storageFun.setValue,
-		remove		: storageFun.removeValue,
-		clear		: storageFun.clearValue,
-		change		: storageFun.changeValue,
-		timeout		: storageFun.setTimeout,//其实没用的
-		countspace	: storageFun.count
-	};
-	
 	var storageFun = {
 		getValue : function getValue(key){
 			return JSON.parse(sto.getItem(key));
@@ -330,7 +319,18 @@
 		count	   : function count(){
 		return ((5000000 - JSON.stringify(sto).length)/(1024*1024)).toFixed(2) + 'MB';//不准确，字符存储格式不一样导致不同
 		}
-	}
+	};
+	storage.prototype = {
+		constructor : storage,
+		get			: storageFun.getValue,
+		set			: storageFun.setValue,
+		remove		: storageFun.removeValue,
+		clear		: storageFun.clearValue,
+		change		: storageFun.changeValue,
+		timeout		: storageFun.setTimeout,//其实没用的
+		countspace	: storageFun.count
+	};
+	
 	window['Gm']['storage'] = new storage();
 	
 	//自动化分页
@@ -338,4 +338,22 @@
 	function setPagination(table, total, ) {
 		
 	};
+	
+	//正则表达式限定
+	function regLimit(ele, eventhandler, options){
+		switch(options){
+			case 'num' : ele.on(eventhandler, function(){//限定数字输入
+				ele.val(ele.val().replace(/[^0-9]/g,''));
+			});
+			ele.css('ime-mode', 'disabled');
+			break;
+			case 'letter': ele.on(eventhandler, function(){//限定字母输入，不区分大小写
+				ele.val(ele.val().replace(/[^a-z]/ig,''));
+			});
+			break;
+			//...其他待完善，可以考虑加入参数是正则表达式
+			default : break;
+		}
+	}
+	window['Gm']['regLimit'] = regLimit;
 })(jQuery, window, document)
