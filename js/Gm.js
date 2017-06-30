@@ -335,25 +335,22 @@
 	
 	//自动化分页
 	var tableData =[];
-	function setPagination(table, total, ) {
+	function setPagination() {
 		
 	};
 	
 	//正则表达式限定
-	function regLimit(ele, eventhandler, options){
-		switch(options){
-			case 'num' : ele.on(eventhandler, function(){//限定数字输入
-				ele.val(ele.val().replace(/[^0-9]/g,''));
+	function regLimit(ele, options){
+		var regObj = {
+			'num'    : /[^0-9]/g,
+			'letter' : /[^a-z]/ig 
+		};
+		
+		if (getObjectType(regObj[options]) === 'RegExp') {
+			ele.on('keyup', function(){//限定数字输入
+				ele.val(ele.val().replace(regObj[options],''));
 			});
-			ele.css('ime-mode', 'disabled');
-			break;
-			case 'letter': ele.on(eventhandler, function(){//限定字母输入，不区分大小写
-				ele.val(ele.val().replace(/[^a-z]/ig,''));
-			});
-			break;
-			//...其他待完善，可以考虑加入参数是正则表达式
-			default : break;
-		}
-	}
+		} else {return};
+	};
 	window['Gm']['regLimit'] = regLimit;
 })(jQuery, window, document)
