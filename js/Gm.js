@@ -55,6 +55,35 @@
 	};
 	window['Gm']['getObjectType'] = getObjectType;
 	
+	function addEvent(node, type, listener) {
+		
+		//使用前面的方法检查兼容性
+		if (!isCompatible()) {
+			return false;
+		};
+		
+		if (!(node = $(node))) {
+			return false;
+		};
+		
+		if (node.addEventListener) {
+			
+			//W3C方法
+			node.addEventListener(type, listener, false);
+			return true;
+		} else if(node.attachEvent) {
+			
+			//MSIE方法
+			node["e" + type + listener] = listener;
+			node[type + listener] = function() {
+			node["e" + type + listener](window.event);
+			}
+			node.attachEvent("on" + type, node[type + listener]);
+			return true;
+		}
+		return false; //两种方法皆不具备
+	};
+	window["Gm"]["addEvent"] = addEvent;
 	//操作cookie
 	function cookier(){
 		function cookierWorker() {
