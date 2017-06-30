@@ -5,10 +5,11 @@
 		<title></title>
 	</head>
 	<body>
+		<input type="text" id="test" value="12" />
 		<script type="text/javascript" src="js/jquery-1.12.1.min.js" ></script>
 		<script type="text/javascript" src="js/Gm.js" ></script>
 		<script>
-			
+			Gm.regLimit($('#test'), 'keyup','letter');	
 		</script>
 	</body>
 </html>
